@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set a Fitness Goal - Workout Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Set a Fitness Goal</h1>
+    </header>
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logworkout">Log Workout</a>
+        <a href="/setgoal">Set Goal</a>
+        <a href="/progressreport">Progress Report</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <main>
+        <form action="/setgoal" method="post">
+            <label for="goalDescription">Goal Description:</label>
+            <input type="text" id="goalDescription" name="goalDescription" required>
+            <input type="submit" value="Set Goal">
+        </form>
+    </main>
+</body>
+</html>

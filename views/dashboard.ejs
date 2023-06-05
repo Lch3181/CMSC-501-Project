@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Workout Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, <%= user.username %>!</h1>
+    </header>
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logworkout">Log Workout</a>
+        <a href="/setgoal">Set Goal</a>
+        <a href="/progressreport">Progress Report</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <main>
+        <section>
+            <h2>Your Workouts</h2>
+            <% workouts.forEach(workout => { %>
+                <div>
+                    <h3>Type: <%= workout.type %></h3>
+                    <p>Duration: <%= workout.duration %> minutes</p>
+                    <p>Intensity: <%= workout.intensity %></p>
+                    <p>Distance: <%= workout.distance %> km</p>
+                    <p>Date: <%= workout.date %> </p>
+                </div>
+            <% }) %>
+        </section>
+        <section>
+            <h2>Your Goals</h2>
+            <% goals.forEach(goal => { %>
+                <div>
+                    <% const daysSinceGoalDate = Math.floor((Date.now() - goal.date) / (1000 * 60 * 60 * 24)); %>
+                    <h3>Description: <%= goal.description %></h3>
+                    <p>Status: <%= goal.achieved ? 'Achieved' : 'Ongoing' %></p>
+                    <p>Days Since Set Goal Date: <%= daysSinceGoalDate %></p>
+                </div>
+            <% }) %>
+        </section>
+    </main>
+</body>
+</html>

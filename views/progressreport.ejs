@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Progress Report - Workout Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Your Progress Report</h1>
+    </header>
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logworkout">Log Workout</a>
+        <a href="/setgoal">Set Goal</a>
+        <a href="/progressreport">Progress Report</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <main>
+        <h2>Workouts</h2>
+        <ul>
+            <% for (let workout of workouts) { %>
+                <li><%= workout.type %> - <%= workout.duration %> minutes - <%= workout.intensity %> - <%= workout.distance %> km - <%= workout.date.toDateString() %></li>
+            <% } %>
+        </ul>
+        <h2>Goals</h2>
+        <ul>
+            <% for (let goal of goals) { %>
+                <li><%= goal.description %> - <%= goal.date.toDateString() %> - <%= goal.achieved ? 'Achieved' : 'Ongoing' %></li>
+            <% } %>
+        </ul>
+    </main>
+</body>
+</html>

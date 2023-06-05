@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log a Workout - Workout Tracker</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Log a Workout</h1>
+    </header>
+    <nav>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logworkout">Log Workout</a>
+        <a href="/setgoal">Set Goal</a>
+        <a href="/progressreport">Progress Report</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <main>
+        <form action="/logworkout" method="post">
+            <label for="workoutType">Workout Type:</label>
+            <input type="text" id="workoutType" name="workoutType">
+
+            <label for="duration">Duration (in minutes):</label>
+            <input type="number" id="duration" name="duration">
+
+            <label for="intensity">Intensity:</label>
+            <input type="text" id="intensity" name="intensity">
+
+            <label for="distance">Distance (in kilometers):</label>
+            <input type="number" id="distance" name="distance">
+
+            <input type="submit" value="Log Workout">
+        </form>
+    </main>
+</body>
+</html>
