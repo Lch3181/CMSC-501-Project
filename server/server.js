@@ -190,31 +190,25 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
             }
 
             try {
-                const workouts = await workoutsCollection.find({userId: req.session.userId}).toArray();
+                const workouts = await workoutsCollection.find({userId: req.session.userId}).sort({date: 1}).toArray();
 
-                let totalDuration = 0;
-                let totalDistance = 0;
-                let totalIntensity = 0;
-
-                workouts.forEach(workout => {
-                    totalDuration += workout.duration;
-                    totalDistance += workout.distance;
-                    totalIntensity += workout.intensity;
-                });
-
-                const avgIntensity = workouts.length > 0 ? totalIntensity / workouts.length : 0;
+                const dates = workouts.map(workout => workout.date.toISOString().slice(0,10)); // 'YYYY-MM-DD'
+                const durations = workouts.map(workout => workout.duration);
+                const intensities = workouts.map(workout => workout.intensity);
 
                 res.render('progressreport', {
                     workouts,
-                    totalDuration,
-                    totalDistance,
-                    avgIntensity,
+                    dates,
+                    durations,
+                    intensities
                 });
             } catch (error) {
                 console.error(error);
                 res.status(500).send('Server error');
             }
         });
+
+
         
         app.listen(3000, function() {
             console.log('Server is running on http://localhost:3000');

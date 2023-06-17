@@ -25,29 +25,29 @@
                 <li><%= workout.type %> - <%= workout.duration %> minutes - <%= workout.intensity %> - <%= workout.distance %> km - <%= workout.date.toDateString() %></li>
             <% } %>
         </ul>
-        <h2>Progress Chart</h2>
+        <h2>Workout Duration and Intensity Over Time</h2>
         <canvas id="myChart"></canvas>
         <script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
-                    labels: ['Total Duration', 'Total Distance', 'Average Intensity'],
+                    labels: <%- JSON.stringify(dates) %>,
                     datasets: [{
-                        label: '# of Units',
-                        data: [<%= totalDuration %>, <%= totalDistance %>, <%= avgIntensity %>],
-                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(192, 75, 192, 0.2)', 'rgba(192, 192, 75, 0.2)'],
-                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(192, 75, 192, 1)', 'rgba(192, 192, 75, 1)'],
-                        borderWidth: 1
+                        label: 'Duration in minutes',
+                        data: <%- JSON.stringify(durations) %>,
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Intensity',
+                        data: <%- JSON.stringify(intensities) %>,
+                        fill: false,
+                        borderColor: 'rgb(255, 99, 132)',
+                        tension: 0.1
                     }]
                 },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
             });
         </script>
     </main>
