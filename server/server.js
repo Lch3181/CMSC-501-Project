@@ -230,8 +230,8 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
             }
         });
         
-        app.listen(3000, function() {
-            console.log('Server is running on http://localhost:3000');
+        app.listen(process.env.PORT, function() {
+            console.log(`Server is running on http://localhost:${process.env.PORT}`);
         });
     })
     .catch(error => console.error(error));
