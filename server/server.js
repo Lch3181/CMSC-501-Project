@@ -191,6 +191,7 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
 
             try {
                 const workouts = await workoutsCollection.find({userId: req.session.userId}).sort({date: 1}).toArray();
+                const goals = await goalsCollection.find({userId: req.session.userId}).sort({date: 1}).toArray();
 
                 const dates = workouts.map(workout => workout.date.toISOString().slice(0,10)); // 'YYYY-MM-DD'
                 const durations = workouts.map(workout => workout.duration);
@@ -198,6 +199,7 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
 
                 res.render('progressreport', {
                     workouts,
+                    goals,
                     dates,
                     durations,
                     intensities
@@ -207,8 +209,6 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
                 res.status(500).send('Server error');
             }
         });
-
-
         
         app.listen(3000, function() {
             console.log('Server is running on http://localhost:3000');
