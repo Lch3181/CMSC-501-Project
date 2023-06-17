@@ -26,7 +26,7 @@
                     <p>Duration: <%= workout.duration %> minutes</p>
                     <p>Intensity: <%= workout.intensity %></p>
                     <p>Distance: <%= workout.distance %> km</p>
-                    <p>Date: <%= workout.date %> </p>
+                    <p>Date: <%= workout.date.toISOString().slice(0,10) %> </p>
                 </div>
             <% }) %>
         </section>
