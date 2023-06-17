@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Progress Report - Workout Tracker</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -25,12 +25,31 @@
                 <li><%= workout.type %> - <%= workout.duration %> minutes - <%= workout.intensity %> - <%= workout.distance %> km - <%= workout.date.toDateString() %></li>
             <% } %>
         </ul>
-        <h2>Goals</h2>
-        <ul>
-            <% for (let goal of goals) { %>
-                <li><%= goal.description %> - <%= goal.date.toDateString() %> - <%= goal.achieved ? 'Achieved' : 'Ongoing' %></li>
-            <% } %>
-        </ul>
+        <h2>Progress Chart</h2>
+        <canvas id="myChart"></canvas>
+        <script>
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Duration', 'Total Distance', 'Average Intensity'],
+                    datasets: [{
+                        label: '# of Units',
+                        data: [<%= totalDuration %>, <%= totalDistance %>, <%= avgIntensity %>],
+                        backgroundColor: ['rgba(75, 192, 192, 0.2)', 'rgba(192, 75, 192, 0.2)', 'rgba(192, 192, 75, 0.2)'],
+                        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(192, 75, 192, 1)', 'rgba(192, 192, 75, 1)'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
     </main>
 </body>
 </html>

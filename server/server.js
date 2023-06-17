@@ -181,7 +181,7 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
                     res.status(500).send('Server error');
                 });
         });
-
+        
         // Progress Report Page
         app.get('/progressreport', async (req, res) => {
             if (!req.session.userId) {
@@ -191,15 +191,31 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
 
             try {
                 const workouts = await workoutsCollection.find({userId: req.session.userId}).toArray();
-                const goals = await goalsCollection.find({userId: req.session.userId}).toArray();
 
-                res.render('progressreport', {workouts: workouts, goals: goals});
+                let totalDuration = 0;
+                let totalDistance = 0;
+                let totalIntensity = 0;
+
+                workouts.forEach(workout => {
+                    totalDuration += workout.duration;
+                    totalDistance += workout.distance;
+                    totalIntensity += workout.intensity;
+                });
+
+                const avgIntensity = workouts.length > 0 ? totalIntensity / workouts.length : 0;
+
+                res.render('progressreport', {
+                    workouts,
+                    totalDuration,
+                    totalDistance,
+                    avgIntensity,
+                });
             } catch (error) {
                 console.error(error);
                 res.status(500).send('Server error');
             }
         });
-
+        
         app.listen(3000, function() {
             console.log('Server is running on http://localhost:3000');
         });
