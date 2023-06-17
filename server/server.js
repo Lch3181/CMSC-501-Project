@@ -114,6 +114,26 @@ MongoClient.connect(process.env.DB_CONNECTION_STRING, {})
             });
         });
 
+        // achieve goal
+        app.post('/goals/achieved', async (req, res) => {
+            if (!req.session.userId) {
+                res.redirect('/login');
+                return;
+            }
+        
+            try {
+                const goalId = req.body.goalId;
+                await goalsCollection.updateOne(
+                    { _id: new ObjectId(goalId), userId: req.session.userId },
+                    { $set: { achieved: true } }
+                );
+                res.redirect('/dashboard');
+            } catch (error) {
+                console.error(error);
+                res.status(500).send('Server error');
+            }
+        });        
+
         // Log Workout Page
         app.get('/logworkout', (req, res) => {
             if (!req.session.userId) {

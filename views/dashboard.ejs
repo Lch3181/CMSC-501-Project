@@ -38,6 +38,12 @@
                     <h3>Description: <%= goal.description %></h3>
                     <p>Status: <%= goal.achieved ? 'Achieved' : 'Ongoing' %></p>
                     <p>Days Since Set Goal Date: <%= daysSinceGoalDate %></p>
+                    <% if (!goal.achieved) { %>
+                        <form action="/goals/achieved" method="post">
+                            <input type="hidden" name="goalId" value="<%= goal._id %>">
+                            <button type="submit">Mark as Achieved</button>
+                        </form>
+                    <% } %>
                 </div>
             <% }) %>
         </section>
