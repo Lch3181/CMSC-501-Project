@@ -22,7 +22,11 @@
         <h2>Workouts</h2>
         <ul>
             <% for (let workout of workouts) { %>
-                <li><%= workout.type %> - <%= workout.duration %> minutes - Intensity - <%= workout.intensity %> - <%= workout.distance %> km - <%= workout.date.toDateString() %></li>
+                <% if (workout.distance) { %>
+                    <li><%= workout.type %> - <%= workout.duration %> minutes - Intensity <%= workout.intensity %> - <%= workout.distance %> km - <%= workout.date.toDateString() %></li>
+                <% } else { %>
+                    <li><%= workout.type %> - <%= workout.duration %> minutes - Intensity <%= workout.intensity %> - <%= workout.date.toDateString() %></li>
+                <% } %>
             <% } %>
         </ul>
         <h2>Your Goals</h2>

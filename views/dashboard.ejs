@@ -25,7 +25,9 @@
                     <h3>Type: <%= workout.type %></h3>
                     <p>Duration: <%= workout.duration %> minutes</p>
                     <p>Intensity: <%= workout.intensity %></p>
-                    <p>Distance: <%= workout.distance %> km</p>
+                    <% if (workout.distance) { %>
+                        <p>Distance: <%= workout.distance %> km</p>
+                    <% } %>
                     <p>Date: <%= workout.date.toISOString().slice(0,10) %> </p>
                 </div>
             <% }) %>
@@ -37,7 +39,7 @@
                     <% const daysSinceGoalDate = Math.floor((Date.now() - goal.date) / (1000 * 60 * 60 * 24)); %>
                     <h3>Description: <%= goal.description %></h3>
                     <p>Status: <%= goal.achieved ? 'Achieved' : 'Ongoing' %></p>
-                    <p>Days Since Set Goal Date: <%= daysSinceGoalDate %></p>
+                    <p>Days: <%= daysSinceGoalDate %></p>
                     <% if (!goal.achieved) { %>
                         <form action="/goals/achieved" method="post">
                             <input type="hidden" name="goalId" value="<%= goal._id %>">
