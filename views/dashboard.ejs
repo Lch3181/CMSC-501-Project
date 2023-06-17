@@ -17,10 +17,10 @@
         <a href="/progressreport">Progress Report</a>
         <a href="/logout">Logout</a>
     </nav>
-    <main>
-        <section>
+    <main style="display: flex; justify-content: left;">
+        <section style="margin-right: 20px;">
             <h2>Your Workouts</h2>
-            <% workouts.forEach(workout => { %>
+            <% workouts.slice(0, 5).forEach(workout => { %>
                 <div>
                     <h3>Type: <%= workout.type %></h3>
                     <p>Duration: <%= workout.duration %> minutes</p>
@@ -30,9 +30,9 @@
                 </div>
             <% }) %>
         </section>
-        <section>
+        <section style="margin-left: 20px;">
             <h2>Your Goals</h2>
-            <% goals.forEach(goal => { %>
+            <% goals.slice(0, 5).forEach(goal => { %>
                 <div>
                     <% const daysSinceGoalDate = Math.floor((Date.now() - goal.date) / (1000 * 60 * 60 * 24)); %>
                     <h3>Description: <%= goal.description %></h3>
